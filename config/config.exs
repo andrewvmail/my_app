@@ -8,9 +8,10 @@ config :my_app, MyApp.Server,
        scheme: :http,
        port: 8880
 
+config :joken, default_signer: "oursecret"
+
 config :my_app,
        maru_servers: [MyApp.Server]
-
 
 # This configuration is loaded before any dependency and is restricted
 # to this project. If another project depends on this project, this

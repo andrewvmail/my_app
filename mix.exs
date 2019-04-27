@@ -25,6 +25,7 @@ defmodule MyApp.MixProject do
       {:maru, "~> 0.14-pre.1"},
       {:plug_cowboy, "~> 2.0"},
       {:cowboy, "~> 2.5"},
+{:joken, "~> 2.0-rc0"},
       {:cowlib, "2.7.0", override: true},
       {:jwt, git: "https://github.com/TigerhoodInc/jwt-google-tokens", branch: "master"},
       {:poison, "~> 3.1"},

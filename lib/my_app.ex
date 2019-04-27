@@ -2,48 +2,20 @@ defmodule MyApp.Server do
   use Maru.Server, otp_app: :my_app
 end
 
-defmodule Router.User do
-  use MyApp.Server
-
-  namespace :user do
-    route_param :id do
-      get do
-        json(conn, %{user: params[:id]})
-      end
-
-      desc "description"
-
-      params do
-        requires :age, type: Integer, values: 18..65
-        requires :gender, type: Atom, values: [:male, :female], default: :female
-
-        group :name, type: Map do
-          requires :first_name
-          requires :last_name
-        end
-
-        optional :intro, type: String, regexp: ~r/^[a-z]+$/
-        optional :avatar, type: File
-        optional :avatar_url, type: String
-        exactly_one_of [:avatar, :avatar_url]
-      end
-
-      # post do
-      #   ...
-      # end
-    end
-  end
-end
-
 defmodule Router.Homepage do
   use MyApp.Server
 
-  resources do
-    get do
-      json(conn, %{hello: :world})
-    end
+  #plug Jwt.Plugs.VerifySignature
 
-    mount Router.User
+  get "/token" do
+    {:ok, token, claims} = MyApp.Token.generate_and_sign()
+    message = %{
+        token: token,
+        claims: claims,
+    }
+    conn
+      |> put_resp_header("content-type", "application/json; charset=utf-8")
+      |> send_resp(200, Poison.encode!(message, pretty: true))
   end
 end
 
