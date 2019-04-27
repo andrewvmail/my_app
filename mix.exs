@@ -14,6 +14,7 @@ defmodule MyApp.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
+      mod: {MyApp.Application, []},
       extra_applications: [:logger]
     ]
   end
@@ -23,11 +24,10 @@ defmodule MyApp.MixProject do
     [
       {:maru, "~> 0.14-pre.1"},
       {:plug_cowboy, "~> 2.0"},
+      {:cowboy, "~> 2.5"},
       {:cowlib, "2.7.0", override: true},
-
-                                 {:poison, "~> 3.1"},
-      # Optional dependency, you can also add your own json_library dependency
-      # and config with `config :maru, json_library, YOUR_JSON_LIBRARY`.
+      {:jwt, git: "https://github.com/TigerhoodInc/jwt-google-tokens", branch: "master"},
+      {:poison, "~> 3.1"},
       {:jason, "~> 1.1"}
     ]
   end
