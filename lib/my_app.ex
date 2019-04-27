@@ -10,8 +10,8 @@ defmodule Router.Homepage do
   get "/token" do
     {:ok, token, claims} = MyApp.Token.generate_and_sign()
     message = %{
-        token: token,
         claims: claims,
+        token: token,
     }
     conn
       |> put_resp_header("content-type", "application/json; charset=utf-8")
